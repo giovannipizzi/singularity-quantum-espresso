@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  vars:
+    # this would take too mych time...
+    run_tests: False
+    quantum_espresso_code_folder: "/tmp/"
+  roles:
+  - marvel-nccr.quantum_espresso

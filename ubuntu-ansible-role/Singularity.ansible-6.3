@@ -1,0 +1,19 @@
+Bootstrap: docker
+From: marvelnccr/ubuntu-docker-base:2.2
+
+%files
+   playbook.yml /tmp/quantum-espresso-ansible-playbook.yml
+
+
+%post
+    ansible-galaxy install -p /tmp marvel-nccr.quantum_espresso
+    ansible-playbook /tmp/quantum-espresso-ansible-playbook.yml
+    apt-get -y clean
+    cp --dereference /tmp//q-e-90a2aa88298f5005b8ab8f5fcc354c5870481d68/bin/*.x /usr/local/bin/
+
+%environment
+    export LC_ALL=en_US.UTF-8
+    export ANSIBLE_ROLES_PATH=/tmp
+
+%runscript
+    echo "Quantum ESPRESSO is installed (using the marvel-nccr.quantum_espresso Ansible role) in this singularity file. Just run pw.x or one of the other Quantum ESPRESSO codes."
